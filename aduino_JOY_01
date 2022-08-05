@@ -1,0 +1,158 @@
+#include <Keyboard.h> 
+const byte Button_B = 3;
+const byte Button_C = 4;
+const byte Button_D = 5;
+
+int KeyB,KeyC,KeyD;
+
+const byte Joy_X = 0; //조이스틱
+const byte Joy_Y = 1;
+
+
+int XL,XR,YD,YU;
+
+int Key_delay=100;
+
+void setup() {
+  
+  Keyboard.begin();
+  Serial.begin(9600);
+  pinMode(Button_B,INPUT);
+  pinMode(Button_C,INPUT);
+  pinMode(Button_D,INPUT);
+  
+}
+
+void loop() {
+
+  //조이스틱 왼쪽
+       
+   if((analogRead(Joy_X)<265)&&(XL==1))
+   {
+      Keyboard.press(KEY_LEFT_ARROW);
+      XL=0;
+      delay(Key_delay);
+      
+   }
+
+   if((analogRead(Joy_X)>265)&&(XL==0))
+   {
+      Keyboard.release(KEY_LEFT_ARROW);
+      XL=1;
+      delay(Key_delay);
+      
+   }
+
+
+        //조이스틱 오른쪽
+
+      if((analogRead(Joy_X)>265)&&(XR==1))
+   {
+      Keyboard.press(KEY_RIGHT_ARROW);
+      XR=0;
+      delay(Key_delay);
+      
+   }
+
+   if((analogRead(Joy_X)<265)&&(XR==0))
+   {
+      Keyboard.release(KEY_RIGHT_ARROW);
+      XR=1;
+      delay(Key_delay);
+      
+   }
+
+
+           //조이스틱 아래쪽
+        
+   if((analogRead(Joy_Y)<265)&&(YD==1))
+   {
+      Keyboard.press(KEY_DOWN_ARROW);
+      YD=0;
+      delay(Key_delay);
+      
+   }
+
+   if((analogRead(Joy_Y)>265)&&(YD==0))
+   {
+      Keyboard.release(KEY_DOWN_ARROW);
+      YD=1;
+      delay(Key_delay);
+      
+   }
+
+
+        //조이스틱 위쪽
+
+      if((analogRead(Joy_Y)>265)&&(YU==1))
+   {
+      Keyboard.press(KEY_UP_ARROW);
+      YU=0;
+      delay(Key_delay);
+      
+   }
+
+   if((analogRead(Joy_Y)<265)&&(YU==0))
+   {
+      Keyboard.release(KEY_UP_ARROW);
+      YU=1;
+      delay(Key_delay);
+      
+   }
+       
+
+       // 3번핀
+
+   if((!digitalRead(Button_B))&&(KeyB==1))  // 눌려짐
+   {
+      Keyboard.press("B"); //나중에 설정하기
+      KeyB=0;
+      
+      delay(Key_delay);
+   }
+   if((digitalRead(Button_B))&&(KeyB==0)) // 안눌려짐
+   {
+      Keyboard.release("B"); //나중에 설정하기
+      KeyB=1;
+      
+      delay(Key_delay);
+   }
+
+
+      // 4번핀
+
+      if((!digitalRead(Button_C))&&(KeyC==1))  // 눌려짐
+   {
+      Keyboard.press("C"); //나중에 설정
+      KeyC=0;
+      
+      delay(Key_delay);
+   }
+   if((digitalRead(Button_C))&&(KeyC==0)) // 안눌려짐
+   {
+      Keyboard.release("C"); //나중에 설정하기
+      KeyC=1;
+      
+      delay(Key_delay);
+   }
+
+
+
+      //5번핀
+
+      if((!digitalRead(Button_D))&&(KeyD==1))  // 눌려짐
+   {
+      Keyboard.press("D"); //나중에 설정하기
+      KeyD=0;
+      
+      delay(Key_delay);
+   }
+   if((digitalRead(Button_D))&&(KeyD==0)) // 안눌려짐
+   {
+      Keyboard.release("D"); //나중에 설정하기
+      KeyD=1;
+     
+      delay(Key_delay);
+   }
+
+}
